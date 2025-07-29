@@ -2,7 +2,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/course/renderer.php');
+// ESTA ES LA LÍNEA QUE SOLUCIONA EL ERROR.
+// Carga la clase base para los renderers de formatos de curso.
+require_once($CFG->dirroot . '/course/format/classes/renderer.php');
 
 class format_interactivo_renderer extends format_renderer_base {
 
@@ -107,7 +109,7 @@ class format_interactivo_renderer extends format_renderer_base {
     /**
      * Renders the main content area.
      *
-     * @param string $summary The summary of the section to display.
+     * @param stdClass $summary The summary of the section to display.
      * @return string HTML for the main content.
      */
     protected function render_main_content_placeholder($summary) {
