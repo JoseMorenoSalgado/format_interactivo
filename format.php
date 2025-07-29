@@ -2,7 +2,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/course/format/classes/base.php');
+// En Moodle 4.5, la clase 'format_base' se carga automáticamente.
+// No se necesita 'require_once'.
 
 class format_interactivo extends format_base {
 
