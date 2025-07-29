@@ -1,0 +1,28 @@
+
+<div class="container py-4">
+  <h2 class="text-center mb-4">Bienvenido al curso</h2>
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      {{#sections}}
+      <div class="swiper-slide p-3 bg-light rounded shadow">
+        <h3>{{name}}</h3>
+        <div class="section-summary">{{{summary}}}</div>
+      </div>
+      {{/sections}}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <p class="text-muted mt-4 text-center">
+    Desarrollado por José Erasmo Moreno Salgado - Elearning Cloud
+  </p>
+</div>
+<script>
+  const swiper = new Swiper('.mySwiper', {
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    loop: false,
+  });
+</script>
