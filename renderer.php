@@ -2,8 +2,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// En Moodle 4.5, la clase 'format_renderer_base' se carga automáticamente.
-// No se necesita 'require_once'.
+// En Moodle 4.5 y superior, la clase 'format_renderer_base' se carga automáticamente.
+// No se debe usar 'require_once'. Si el error persiste después de usar este código
+// y purgar cachés, el problema puede estar en la estructura de archivos del plugin
+// o en los permisos del servidor.
 
 class format_interactivo_renderer extends format_renderer_base {
 
@@ -52,7 +54,7 @@ class format_interactivo_renderer extends format_renderer_base {
                 <div class="course-navigation">
                     <?php
                     foreach ($sections as $section) {
-                        // Solo mostramos secciones con contenido y visibles.
+                        // Solo mostramos secciones con contenido y visibles (y no la sección 0).
                         if ($section->section == 0 || !$section->uservisible || !$this->format->section_has_content($section)) {
                             continue;
                         }
