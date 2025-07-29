@@ -2,10 +2,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// Aseguramos que la variable global $CFG esté disponible.
-global $CFG;
-// Carga la clase base para los renderers de formatos de curso.
-require_once($CFG->dirroot . '/course/format/classes/renderer.php');
+// En Moodle 4.5, la clase 'format_renderer_base' se carga automáticamente.
+// No se necesita 'require_once'.
 
 class format_interactivo_renderer extends format_renderer_base {
 
@@ -54,7 +52,8 @@ class format_interactivo_renderer extends format_renderer_base {
                 <div class="course-navigation">
                     <?php
                     foreach ($sections as $section) {
-                        if (!$section->uservisible || !$this->format->section_has_content($section)) {
+                        // Solo mostramos secciones con contenido y visibles.
+                        if ($section->section == 0 || !$section->uservisible || !$this->format->section_has_content($section)) {
                             continue;
                         }
                         echo $this->render_section($section, $modinfo);
@@ -110,7 +109,7 @@ class format_interactivo_renderer extends format_renderer_base {
     /**
      * Renders the main content area.
      *
-     * @param stdClass $summary The summary of the section to display.
+     * @param stdClass|null $summary The summary of the section to display.
      * @return string HTML for the main content.
      */
     protected function render_main_content_placeholder($summary) {
@@ -124,8 +123,6 @@ class format_interactivo_renderer extends format_renderer_base {
         </div>
         <div class="text-center">
             <?php
-            // Muestra el resumen de la sección general del curso.
-            // Puedes cambiar esto para mostrar el contenido de la actividad actual.
             if ($summary) {
                 echo format_text($summary->summary, $summary->summaryformat, ['context' => context_course::instance($this->page->course->id)]);
             }
