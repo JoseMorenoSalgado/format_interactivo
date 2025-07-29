@@ -1,29 +1,35 @@
 <?php
-// format_interactivo/format.php
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/course/format/lib.php');
+require_once($CFG->dirroot . '/course/format/classes/base.php');
 
 class format_interactivo extends format_base {
 
-    public function uses_sections() {
-        return true;
+    /**
+     * Returns the title of the format.
+     *
+     * @return string The title of the format.
+     */
+    public function get_format_title() {
+        return get_string('formattitle', 'format_interactivo');
     }
 
-    public function get_section_name($section) {
-        if ($section == 0) {
-            return get_string('section0name', 'format_interactivo');
-        }
-
-        return parent::get_section_name($section);
+    /**
+     * Returns the name of the format.
+     *
+     * @return string The name of the format.
+     */
+    public function get_format_name() {
+        return 'interactivo';
     }
 
-    public function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
-        return parent::section_header($section, $course, $onsectionpage, $sectionreturn);
-    }
-
-    public function section_footer() {
-        return parent::section_footer();
+    /**
+     * This function is called by the course view page, to print the course content.
+     */
+    public function print_course_content() {
+        global $COURSE;
+        $renderer = $this->page->get_renderer('format_interactivo');
+        echo $renderer->render_course_content();
     }
 }
