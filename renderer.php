@@ -2,7 +2,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// ESTA ES LA LÍNEA QUE SOLUCIONA EL ERROR.
+// Aseguramos que la variable global $CFG esté disponible.
+global $CFG;
 // Carga la clase base para los renderers de formatos de curso.
 require_once($CFG->dirroot . '/course/format/classes/renderer.php');
 
@@ -125,7 +126,9 @@ class format_interactivo_renderer extends format_renderer_base {
             <?php
             // Muestra el resumen de la sección general del curso.
             // Puedes cambiar esto para mostrar el contenido de la actividad actual.
-            echo format_text($summary->summary, $summary->summaryformat, ['context' => context_course::instance($this->page->course->id)]);
+            if ($summary) {
+                echo format_text($summary->summary, $summary->summaryformat, ['context' => context_course::instance($this->page->course->id)]);
+            }
             ?>
         </div>
         <?php
